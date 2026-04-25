@@ -19,7 +19,7 @@ const defaultRooms = [
         location: "Vizianagaram - Fort City",
         price: 4000,
         type: "PG",
-        image: "https://images.unsplash.com/photo-1555854811-664f7621867c?auto=format&fit=crop&w=800&q=80",
+        image: "fort-city.png",
         facilities: ["Home Food", "WiFi", "Daily Cleaning"],
         restrictions: ["No Drinking"],
         description: "Safe and secure PG for women with home-cooked meals."
@@ -41,10 +41,20 @@ const defaultRooms = [
 // Load rooms from localStorage or use defaults
 function getRooms() {
     let roomsData = localStorage.getItem('vzm_rooms');
-    let parsed = [];
     
     if (roomsData) {
-        return JSON.parse(roomsData);
+        let rooms = JSON.parse(roomsData);
+        // Data Migration: Update old Unsplash logos to new local assets
+        let updated = false;
+        rooms = rooms.map(room => {
+            if (room.location === "Vizianagaram - Fort City" && room.image.includes("unsplash.com/photo-1555854811-664f7621867c")) {
+                room.image = "fort-city.png";
+                updated = true;
+            }
+            return room;
+        });
+        if (updated) localStorage.setItem('vzm_rooms', JSON.stringify(rooms));
+        return rooms;
     } else {
         localStorage.setItem('vzm_rooms', JSON.stringify(defaultRooms));
         return defaultRooms;
@@ -234,11 +244,20 @@ function updateNavbarUI() {
     const ownerItems = document.querySelectorAll('.owner-only');
     const userItems = document.querySelectorAll('.user-only');
     const toggleBtn = document.getElementById('roleToggle');
+    const indicator = document.getElementById('roleIndicator');
 
     if (role === 'owner') {
         ownerItems.forEach(el => el.classList.remove('d-none'));
         userItems.forEach(el => el.classList.add('d-none'));
-        if(toggleBtn) toggleBtn.innerHTML = '<i class="bi bi-person-check me-1"></i> Switch to User Mode';
+        if(toggleBtn) toggleBtn.innerHTML = '<i class="bi bi-arrow-left-right me-1"></i> Switch to User';
+        if(toggleBtn) {
+            toggleBtn.classList.remove('btn-primary');
+            toggleBtn.classList.add('btn-dark');
+        }
+        if(indicator) {
+            indicator.innerHTML = '<i class="bi bi-person-workspace me-1"></i> OWNER MODE';
+            indicator.className = 'badge rounded-pill bg-dark text-white px-3 py-2 fw-bold shadow-sm';
+        }
         
         if (window.location.pathname.includes('my-inquiries.html')) {
             window.location.href = 'messages.html';
@@ -246,7 +265,15 @@ function updateNavbarUI() {
     } else {
         ownerItems.forEach(el => el.classList.add('d-none'));
         userItems.forEach(el => el.classList.remove('d-none'));
-        if(toggleBtn) toggleBtn.innerHTML = '<i class="bi bi-person-badge me-1"></i> Switch to Owner Mode';
+        if(toggleBtn) toggleBtn.innerHTML = '<i class="bi bi-arrow-left-right me-1"></i> Switch to Owner';
+        if(toggleBtn) {
+            toggleBtn.classList.remove('btn-dark');
+            toggleBtn.classList.add('btn-primary');
+        }
+        if(indicator) {
+            indicator.innerHTML = '<i class="bi bi-person-circle me-1"></i> USER MODE';
+            indicator.className = 'badge rounded-pill bg-light text-primary border px-3 py-2 fw-bold';
+        }
 
         if (window.location.pathname.includes('messages.html') || window.location.pathname.includes('add.html')) {
             window.location.href = 'index.html';

@@ -34,7 +34,7 @@
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <i class="bi bi-house-heart-fill me-2 text-primary"></i>ROOM FINDER
+                <img src="logo.png" alt="Room Finder" height="40" class="me-2">ROOM FINDER
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -49,9 +49,12 @@
                     <li class="nav-item owner-only d-none"><a class="nav-link" href="messages.html">Inbox</a></li>
                     <li class="nav-item owner-only d-none"><a class="nav-link" href="add.html">Add Room</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                    <li class="ms-lg-3">
-                        <button id="roleToggle" class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="toggleRole()">
-                            <i class="bi bi-person-badge me-1"></i> Switch to Owner
+                    <li class="ms-lg-3 d-flex align-items-center gap-2">
+                        <span id="roleIndicator" class="badge rounded-pill bg-light text-primary border px-3 py-2 fw-bold">
+                            <i class="bi bi-person-circle me-1"></i> USER MODE
+                        </span>
+                        <button id="roleToggle" class="btn btn-sm btn-primary rounded-pill px-3" onclick="toggleRole()">
+                            <i class="bi bi-arrow-left-right me-1"></i> Switch Mode
                         </button>
                     </li>
                 </ul>
@@ -62,7 +65,7 @@
     <div class="container py-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold"><i class="bi bi-envelope-paper-fill me-2 text-primary"></i>Inquiries Inbox</h2>
-            <button class="btn btn-outline-danger btn-sm" onclick="clearInbox()">Clear All</button>
+            <button class="btn btn-outline-danger btn-sm rounded-pill px-3" onclick="clearInbox()">Clear All</button>
         </div>
 
         <div id="inboxContainer">
@@ -86,7 +89,7 @@
                             <textarea id="replyText" class="form-control" rows="4" placeholder="Type your response here..." required></textarea>
                         </div>
                         <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-dark py-2 fw-bold">SEND REPLY</button>
+                            <button type="submit" class="btn btn-dark py-2 fw-bold rounded-pill">SEND REPLY</button>
                         </div>
                     </form>
                 </div>

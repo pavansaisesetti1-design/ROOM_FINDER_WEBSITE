@@ -40,12 +40,18 @@
     </style>
 </head>
 <body>
+    <!-- Animated Mesh Background -->
+    <div class="mesh-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <i class="bi bi-house-heart-fill me-2 text-primary"></i>ROOM FINDER
+                <img src="logo.png" alt="Room Finder" height="40" class="me-2">ROOM FINDER
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -53,16 +59,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="find.html">Find Room</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="find.html">Find Room</a></li>
                     <!-- User Only -->
                     <li class="nav-item user-only"><a class="nav-link" href="my-inquiries.html">My Inquiries</a></li>
                     <!-- Owner Only -->
                     <li class="nav-item owner-only d-none"><a class="nav-link" href="messages.html">Inbox</a></li>
                     <li class="nav-item owner-only d-none"><a class="nav-link" href="add.html">Add Room</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                    <li class="ms-lg-3">
-                        <button id="roleToggle" class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="toggleRole()">
-                            <i class="bi bi-person-badge me-1"></i> Switch to Owner
+                    <li class="ms-lg-3 d-flex align-items-center gap-2">
+                        <span id="roleIndicator" class="badge rounded-pill bg-light text-primary border px-3 py-2 fw-bold">
+                            <i class="bi bi-person-circle me-1"></i> USER MODE
+                        </span>
+                        <button id="roleToggle" class="btn btn-sm btn-primary rounded-pill px-3" onclick="toggleRole()">
+                            <i class="bi bi-arrow-left-right me-1"></i> Switch Mode
                         </button>
                     </li>
                 </ul>
@@ -94,10 +103,10 @@
                     </select>
                 </div>
                 <div class="col-md-2 d-flex align-items-end gap-2">
-                    <button class="btn btn-primary w-100" onclick="applyFilters()">
+                    <button class="btn btn-primary w-100 rounded-pill" onclick="applyFilters()">
                         <i class="bi bi-search me-1"></i>Search
                     </button>
-                    <button class="btn btn-outline-secondary" onclick="resetFilters()" title="Reset">
+                    <button class="btn btn-outline-secondary rounded-pill" onclick="resetFilters()" title="Reset">
                         <i class="bi bi-arrow-clockwise"></i>
                     </button>
                 </div>
@@ -158,7 +167,7 @@
                             <textarea id="senderMessage" class="form-control" rows="4" placeholder="I'm interested in this room. Please let me know the details..." required></textarea>
                         </div>
                         <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-primary py-2 fw-bold">SEND MESSAGE</button>
+                            <button type="submit" class="btn btn-primary py-2 fw-bold rounded-pill">SEND MESSAGE</button>
                         </div>
                     </form>
                 </div>
@@ -171,7 +180,7 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-6">
-                    <h4 class="text-white fw-bold mb-4">ROOM FINDER</h4>
+                    <h4 class="text-white fw-bold mb-4"><img src="logo.png" alt="Logo" height="30" class="me-2">ROOM FINDER</h4>
                     <p class="text-secondary">The next smart way to find rental rooms, PGs, and hostels.</p>
                 </div>
                 <div class="col-md-3">

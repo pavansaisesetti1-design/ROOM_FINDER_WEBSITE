@@ -14,19 +14,38 @@
 </head>
 
 <body>
+    <!-- Animated Mesh Background -->
+    <div class="mesh-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Brand Header -->
+    <header class="brand-header py-4 bg-white border-bottom">
+        <div class="container">
+            <a href="index.html" class="brand-identity-link d-flex align-items-center justify-content-center text-decoration-none">
+                <img src="logo.png" alt="Room Finder Logo" height="100" class="me-4 logo-img">
+                <div class="text-start">
+                    <h1 class="brand-title mb-0">ROOM FINDER</h1>
+                    <p class="brand-tagline text-secondary mb-0">The Next Smart Way to Find Rentals</p>
+                </div>
+            </a>
+        </div>
+    </header>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <i class="bi bi-house-heart-fill me-2 text-primary"></i>ROOM FINDER
+                <img src="logo.png" alt="Room Finder" height="40" class="me-2">ROOM FINDER
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="find.html">Find Room</a></li>
                     <!-- User Only -->
                     <li class="nav-item user-only"><a class="nav-link" href="my-inquiries.html">My Inquiries</a></li>
@@ -34,10 +53,13 @@
                     <li class="nav-item owner-only d-none"><a class="nav-link" href="messages.html">Inbox</a></li>
                     <li class="nav-item owner-only d-none"><a class="nav-link" href="add.html">Add Room</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                    <li class="ms-lg-3">
-                        <button id="roleToggle" class="btn btn-sm btn-outline-primary rounded-pill px-3"
+                    <li class="ms-lg-3 d-flex align-items-center gap-2">
+                        <span id="roleIndicator" class="badge rounded-pill bg-light text-primary border px-3 py-2 fw-bold">
+                            <i class="bi bi-person-circle me-1"></i> USER MODE
+                        </span>
+                        <button id="roleToggle" class="btn btn-sm btn-primary rounded-pill px-3"
                             onclick="toggleRole()">
-                            <i class="bi bi-person-badge me-1"></i> Switch to Owner
+                            <i class="bi bi-arrow-left-right me-1"></i> Switch Mode
                         </button>
                     </li>
                 </ul>
@@ -47,20 +69,30 @@
 
     <!-- Hero Section -->
     <section class="hero"
-        style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('hero.png'); background-size: cover; background-position: center; min-height: 500px; display: flex; align-items: center; color: white;">
-        <div class="container">
-            <h1 class="animate-up text-white">The Next Smart Way to Find <span class="text-primary">Rental Rooms &
-                    PGs</span></h1>
-            <p class="animate-up text-white-50" style="animation-delay: 0.1s;">A simple and user-friendly platform to
-                find rental rooms, PGs, and hostels based on your specific needs and preferences.</p>
+        style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero.png'); background-size: cover; background-position: center; min-height: 600px; display: flex; align-items: center; color: white;">
+        <div class="hero-overlay"></div>
+        <div class="floating-shapes-container">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
         </div>
+        <div class="container py-5">
+            <h1 class="animate-up text-white display-3 fw-bold mb-4">The Next Smart Way to Find <br><span class="text-primary">Rental Rooms & PGs</span></h1>
+            <p class="animate-up text-white-50 fs-5 mb-5 max-width-600" style="animation-delay: 0.1s;">Experience a seamless search journey with smart filtering, direct owner contact, and verified listings tailored to your lifestyle.</p>
+            
+            <div class="d-flex gap-3 animate-up" style="animation-delay: 0.2s;">
+                <a href="find.html" class="btn btn-primary btn-lg rounded-pill px-5">Get Started <i class="bi bi-arrow-right ms-2"></i></a>
+                <a href="about.html" class="btn btn-light btn-lg rounded-pill px-5">Learn More</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"></div>
     </section>
 
     <!-- Search Section -->
     <div class="container">
         <div class="search-container animate-up"
-            style="animation-delay: 0.2s; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3);">
-            <form action="find.html" method="GET" class="row g-3 align-items-end">
+            style="animation-delay: 0.3s; margin-top: -80px; position: relative; z-index: 20; padding: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.2);">
+            <form action="find.html" method="GET" class="row g-4 align-items-end">
                 <div class="col-md-4">
                     <label class="form-label fw-semibold">Location</label>
                     <div class="input-group">
@@ -135,7 +167,7 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="fw-bold">Featured Listings</h2>
-                <a href="find.html" class="btn btn-outline-primary rounded-pill">View All Rooms</a>
+                <a href="find.html" class="btn btn-primary rounded-pill px-4">View All Rooms</a>
             </div>
             <div class="row g-4">
                 <!-- Vizianagaram Room 1 -->
@@ -161,7 +193,7 @@
                 <!-- Vizianagaram Room 2 -->
                 <div class="col-md-4">
                     <div class="room-card card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1555854811-664f7621867c?auto=format&fit=crop&w=800&q=80"
+                        <img src="fort-city.png"
                             alt="Fort City" class="card-img-top" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <span class="badge bg-primary-subtle text-primary mb-2">PG Sharing</span>
@@ -207,7 +239,7 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-6">
-                    <h4 class="text-white fw-bold mb-4">ROOM FINDER</h4>
+                    <h4 class="text-white fw-bold mb-4"><img src="logo.png" alt="Logo" height="30" class="me-2">ROOM FINDER</h4>
                     <p class="text-secondary max-width-400">The next smart way to find rental rooms, PGs, and hostels.
                         We simplify your search with smart filtering and transparent details.</p>
                     <div class="social-links mt-4">
