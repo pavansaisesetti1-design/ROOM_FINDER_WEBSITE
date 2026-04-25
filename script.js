@@ -239,6 +239,25 @@ function toggleRole() {
     }
 }
 
+// Handle Visitor Count
+function handleVisitorCount() {
+    let count = localStorage.getItem('vzm_visit_count');
+    if (count === null) {
+        count = 0;
+    } else {
+        count = parseInt(count);
+    }
+    
+    // Exact count - increment once per page load
+    count++;
+    localStorage.setItem('vzm_visit_count', count);
+    
+    const countDisplays = document.querySelectorAll('.visitor-count-num');
+    countDisplays.forEach(el => {
+        el.innerText = count.toLocaleString();
+    });
+}
+
 function updateNavbarUI() {
     const role = localStorage.getItem('vzm_role') || 'user';
     const ownerItems = document.querySelectorAll('.owner-only');
@@ -284,6 +303,7 @@ function updateNavbarUI() {
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     updateNavbarUI();
+    handleVisitorCount();
     
     // Handle Message Form Submission
     const messageForm = document.getElementById('ownerMessageForm');
