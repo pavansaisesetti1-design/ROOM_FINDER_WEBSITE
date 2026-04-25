@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Room - ROOM FINDER</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .filter-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .pref-checkbox {
+            margin-right: 15px;
+            padding: 8px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            display: inline-block;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+            font-size: 0.9rem;
+        }
+        .pref-checkbox input {
+            display: none;
+        }
+        .pref-checkbox:has(input:checked) {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-house-heart-fill me-2 text-primary"></i>ROOM FINDER
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="find.html">Find Room</a></li>
+                    <!-- User Only -->
+                    <li class="nav-item user-only"><a class="nav-link" href="my-inquiries.html">My Inquiries</a></li>
+                    <!-- Owner Only -->
+                    <li class="nav-item owner-only d-none"><a class="nav-link" href="messages.html">Inbox</a></li>
+                    <li class="nav-item owner-only d-none"><a class="nav-link" href="add.html">Add Room</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="ms-lg-3">
+                        <button id="roleToggle" class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="toggleRole()">
+                            <i class="bi bi-person-badge me-1"></i> Switch to Owner
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <h2 class="fw-bold mb-4">Find Your Perfect Stay</h2>
+
+        <!-- Advanced Filters -->
+        <div class="filter-section animate-up">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Location</label>
+                    <input type="text" id="searchLocation" class="form-control" placeholder="Search by Vizianagaram, Visakhapatnam...">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Max Price</label>
+                    <input type="number" id="filterPrice" class="form-control" placeholder="Max budget">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Room Type</label>
+                    <select id="filterType" class="form-select">
+                        <option value="">All Types</option>
+                        <option value="Single Room">Single Room</option>
+                        <option value="PG">PG</option>
+                        <option value="Hostel">Hostel</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end gap-2">
+                    <button class="btn btn-primary w-100" onclick="applyFilters()">
+                        <i class="bi bi-search me-1"></i>Search
+                    </button>
+                    <button class="btn btn-outline-secondary" onclick="resetFilters()" title="Reset">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Smart Restrictions Filters -->
+            <div class="mt-4">
+                <p class="mb-2 fw-semibold"><i class="bi bi-person-check-fill me-2 text-primary"></i>My Preferences / Characteristics:</p>
+                <div class="d-flex flex-wrap gap-2">
+                    <label class="pref-checkbox">
+                        <input type="checkbox" id="prefSmoke" onchange="applyFilters()"> I Smoke
+                    </label>
+                    <label class="pref-checkbox">
+                        <input type="checkbox" id="prefDrink" onchange="applyFilters()"> I Drink
+                    </label>
+                    <label class="pref-checkbox">
+                        <input type="checkbox" id="prefPet" onchange="applyFilters()"> I have Pets
+                    </label>
+                    <label class="pref-checkbox">
+                        <input type="checkbox" id="prefBachelor" onchange="applyFilters()"> I am a Bachelor
+                    </label>
+                    <label class="pref-checkbox">
+                        <input type="checkbox" id="prefLate" onchange="applyFilters()"> I enter late at night
+                    </label>
+                </div>
+                <small class="text-muted mt-2 d-block">Checking these will hide rooms with matching "No..." restrictions.</small>
+            </div>
+        </div>
+
+        <!-- Rooms List -->
+        <div id="roomsContainer" class="row g-4">
+            <!-- Rooms will be loaded here via JS -->
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header bg-primary text-white border-0 py-3">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-chat-dots me-2"></i>Message Owner</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="ownerMessageForm">
+                        <input type="hidden" id="msgOwnerName">
+                        <input type="hidden" id="msgRoomLocation">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Your Name</label>
+                            <input type="text" id="senderName" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Your Phone</label>
+                            <input type="tel" id="senderPhone" class="form-control" placeholder="Mobile number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Message</label>
+                            <textarea id="senderMessage" class="form-control" rows="4" placeholder="I'm interested in this room. Please let me know the details..." required></textarea>
+                        </div>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary py-2 fw-bold">SEND MESSAGE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <h4 class="text-white fw-bold mb-4">ROOM FINDER</h4>
+                    <p class="text-secondary">The next smart way to find rental rooms, PGs, and hostels.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-white fw-bold mb-4">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find.html">Find Room</a></li>
+                        <li><a href="add.html">Add Room</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="text-white fw-bold mb-4">Contact Info</h5>
+                    <p class="text-secondary"><i class="bi bi-geo-alt me-2"></i> Vizianagaram, AP</p>
+                </div>
+            </div>
+            <hr class="my-5 border-secondary">
+            <div class="text-center text-secondary">
+                <p>&copy; 2026 Room Finder.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>

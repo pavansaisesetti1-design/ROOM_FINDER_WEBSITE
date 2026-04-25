@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Room - ROOM FINDER</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-house-heart-fill me-2 text-primary"></i>ROOM FINDER
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="find.html">Find Room</a></li>
+                    <!-- User Only -->
+                    <li class="nav-item user-only"><a class="nav-link" href="my-inquiries.html">My Inquiries</a></li>
+                    <!-- Owner Only -->
+                    <li class="nav-item owner-only d-none"><a class="nav-link" href="messages.html">Inbox</a></li>
+                    <li class="nav-item owner-only d-none"><a class="nav-link" href="add.html">Add Room</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="ms-lg-3">
+                        <button id="roleToggle" class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="toggleRole()">
+                            <i class="bi bi-person-badge me-1"></i> Switch to Owner
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden animate-up">
+                    <div class="card-header bg-primary py-4 text-center">
+                        <h2 class="text-white fw-bold mb-0">List Your Property</h2>
+                        <p class="text-white-50 mb-0">Fill in the details to find the perfect tenant.</p>
+                    </div>
+                    <div class="card-body p-4 p-md-5 bg-white">
+                        <form id="addRoomForm">
+                            <div class="row g-4">
+                                <!-- Owner Info -->
+                                <div class="col-12">
+                                    <h5 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-person me-2"></i>Owner Details</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Owner Name</label>
+                                    <input type="text" id="ownerName" class="form-control" placeholder="Enter full name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Phone Number</label>
+                                    <input type="tel" id="phoneNumber" class="form-control" placeholder="10-digit mobile number" required>
+                                </div>
+
+                                <!-- Room Info -->
+                                <div class="col-12 mt-5">
+                                    <h5 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-building me-2"></i>Unit Details</h5>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Location</label>
+                                    <input type="text" id="location" class="form-control" placeholder="City or area" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Price (per month)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">₹</span>
+                                        <input type="number" id="price" class="form-control" placeholder="e.g. 5000" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Room Type</label>
+                                    <select id="roomType" class="form-select" required>
+                                        <option value="">Select Type</option>
+                                        <option value="Single Room">Single Room</option>
+                                        <option value="PG">PG</option>
+                                        <option value="Hostel">Hostel</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Image URL</label>
+                                    <input type="url" id="imageUrl" class="form-control" placeholder="Link to room photo (Unsplash recommended)">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">Description / Facilities</label>
+                                    <textarea id="description" class="form-control" rows="3" placeholder="Enter facilities separated by commas (e.g. WiFi, AC, Food)"></textarea>
+                                </div>
+
+                                <!-- Restrictions -->
+                                <div class="col-12 mt-5">
+                                    <h5 class="fw-bold border-bottom pb-2 mb-3"><i class="bi bi-slash-circle me-2"></i>Restrictions (Max 5)</h5>
+                                    <div class="row pt-2">
+                                        <div class="col-md-4 col-6 mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="restrictions" value="No Smoking" id="resSmoke">
+                                                <label class="form-check-label" for="resSmoke">No Smoking</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-6 mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="restrictions" value="No Drinking" id="resDrink">
+                                                <label class="form-check-label" for="resDrink">No Drinking</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-6 mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="restrictions" value="No Pets" id="resPet">
+                                                <label class="form-check-label" for="resPet">No Pets</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-6 mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="restrictions" value="No Bachelors" id="resBachelor">
+                                                <label class="form-check-label" for="resBachelor">No Bachelors</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-6 mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="restrictions" value="No Late Night Entry" id="resLate">
+                                                <label class="form-check-label" for="resLate">No Late Night Entry</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-primary w-100 py-3 fw-bold">LIST ROOM NOW</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-5">
+        <div class="container text-center">
+            <p>&copy; 2026 Room Finder.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
